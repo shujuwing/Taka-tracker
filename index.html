@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taka Tracker</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header>
+    </header>
+    <div class="hero container">
+        <div class="app">
+
+            <h1 class="title">Taka <span>Tracker</span></h1>
+
+            <div class="balance-section">
+                <h1>Balance : <span class="balance">00.00 ৳</span></h1>
+                <h1>Total Earnings : <span class="income">00.00 ৳</span></h1>
+            </div>
+
+            <div class="transiction-history">
+                <h1>Recent Transactions</h1>
+                <ul class="transiction-list">
+
+                    <!-- Transactions will be added here dynamically -->
+
+                </ul>
+            </div>
+
+            <div class="cart">
+                  
+
+                <div class="cart-top">
+
+
+                    <h1>Add Transaction </h1>
+                    <div class="toggle-transition">
+                        <button id="toggle-transition-btn">
+
+                            ↓
+                        </button>
+                    </div>
+                </div>
+               
+                <div class="add-transition hidden">
+
+
+                    <div class="input-sec">
+    
+                        <input id="activity" type="text" placeholder="Activity">
+                        <input id="amount" type="number" placeholder="0">
+                    </div>
+    
+                    <div class="btn-sec">
+    
+                        <button id="addbtn" class="btn">Add Income</button>
+                        <button id="delbtn" class="btn-two btn">Add Cost</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="./script.js">
+
+       
+
+    </script>
+</body>
+
+</html>

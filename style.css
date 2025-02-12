@@ -1,0 +1,181 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(48, 44, 44);
+}
+
+.container {
+    max-width: 85rem;
+    width: 95%;
+    margin-inline: auto;
+}
+
+.hero {
+    text-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 0;
+    color: #fff;
+}
+
+.balance-section{
+    padding: 3rem 0;
+    text-align: start;
+  
+}
+
+.balance-section h1{
+    text-align: center;
+    font: 50px "sans-serif";
+    font-weight: 600;
+   
+}
+
+
+.app {
+    width: 800px;
+    background-color: rgb(31, 24, 24);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    box-shadow: 0 0 5px 5px rgb(204, 29, 29);
+    border-radius: 14px;
+}
+
+.app .title{
+    font: 60px "sans-serif";
+    font-weight: 600;
+    text-align: center;
+
+}
+
+.app .title span{
+    color: red;
+}
+
+
+
+.transiction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 1rem;
+}
+
+.transiction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15rem;
+    color: black;
+    background-color: #fff;
+    padding: 1rem 1rem;
+    width: 400px;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+}
+
+.transiction-history h1{
+    text-align: center;
+}
+
+
+.input-sec {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-sec input {
+    width: 400px;
+    padding: 12px;
+    border-radius: 8px;
+
+}
+
+.btn-sec {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+   
+
+}
+
+.btn {
+    padding: 10px 10px;
+    background-color: rgb(51, 167, 51);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    width: 100px;
+    cursor: pointer;
+    transition: 0.7s;
+}
+
+.btn:hover{
+    background: transparent;
+    border: 1px solid #fff;
+}
+
+.btn-two {
+    background-color: rgb(209, 52, 52);
+}
+
+#toggle-transition-btn {
+    background: linear-gradient(45deg, #ff4d4d, #a7158e);
+   
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 8px;
+    /* position: absolute; */
+    /* top: 28rem;
+    right: 25.5rem; */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(255, 77, 92, 0.5);
+ 
+}
+
+
+
+#toggle-transition-btn:hover{
+    transform: rotate(180deg);
+}
+
+.cart-top{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.add-transition {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.add-transition.hidden {
+    max-height: 0;
+}
+
+.add-transition.visible {
+    max-height: 300px;
+}

@@ -1,74 +1,119 @@
-const balance = document.querySelector('.balance');
-const income = document.querySelector('.income');
+// DOM Elements
+const balanceAmount = document.querySelector('.balance-amount.positive');
+const incomeAmount = document.querySelector('.balance-card:nth-child(2) .balance-amount');
+const transactionList = document.getElementById('transactionList');
+const transactionNameInput = document.getElementById('transactionName');
+const transactionAmountInput = document.getElementById('transactionAmount');
+const addIncomeBtn = document.getElementById('addIncomeBtn');
+const addExpenseBtn = document.getElementById('addExpenseBtn');
+const toggleFormBtn = document.getElementById('toggleFormBtn');
+const transactionForm = document.getElementById('transactionForm');
 
-const activityInput = document.getElementById('activity');
-const amountInput = document.getElementById('amount');
+// State
+let balance = 0;
+let income = 0;
+let transactions = [];
 
-const addbtn = document.getElementById('addbtn');
-const delbtn = document.getElementById('delbtn');
-
-const transactionList = document.querySelector('.transiction-list');
-const toggleTransitionBtn = document.getElementById("toggle-transition-btn");
-const transitionSection = document.querySelector(".add-transition");
-
-let Balance = 0;
-let Income = 0;
-
-function updateUi() {
-    balance.textContent = `৳ ${Balance.toFixed(2)}`;
-    income.textContent = `৳ ${Income.toFixed(2)}`;
-}
-
-function addTransaction(activity, amount, type) {
-    const transaction = document.createElement('li');
-    transaction.classList.add('transiction');
-    transaction.innerHTML = `
-        <span>${activity}</span>
-        <span class="${type === "income" ? "income" : "cost"}">৳${amount.toFixed(2)}</span>
-    `;
-    transactionList.appendChild(transaction);
-}
-
-toggleTransitionBtn.addEventListener("click", () => {
-    transitionSection.classList.toggle("visible");
-    transitionSection.classList.toggle("hidden");
-    
+// Toggle form visibility
+toggleFormBtn.addEventListener('click', () => {
+    transactionForm.classList.toggle('visible');
+    toggleFormBtn.innerHTML = transactionForm.classList.contains('visible')
+        ? '<i class="fas fa-times"></i>'
+        : '<i class="fas fa-plus"></i>';
 });
 
+// Add transaction
+function addTransaction(name, amount, type) {
+    const transaction = {
+        id: Date.now(),
+        name,
+        amount: parseFloat(amount),
+        type
+    };
 
-addbtn.addEventListener('click', () => {
-    const activity = activityInput.value.trim();
-    const amount = parseFloat(amountInput.value);
+    transactions.push(transaction);
 
-    if (!activity || isNaN(amount) || amount <= 0) {
-        alert('Please enter valid activity and amount');
+    if (type === 'income') {
+        balance += transaction.amount;
+        income += transaction.amount;
+    } else {
+        balance -= transaction.amount;
+    }
+
+    updateUI();
+}
+
+// Update UI
+function updateUI() {
+    // Update balance and income
+    balanceAmount.textContent = `${balance.toFixed(2)} ৳`;
+    incomeAmount.textContent = `${income.toFixed(2)} ৳`;
+
+    // Update balance color based on value
+    if (balance < 0) {
+        balanceAmount.classList.remove('positive');
+        balanceAmount.classList.add('negative');
+    } else {
+        balanceAmount.classList.remove('negative');
+        balanceAmount.classList.add('positive');
+    }
+
+    // Update transaction list
+    if (transactions.length === 0) {
+        transactionList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <p>No transactions yet</p>
+                        <p>Add your first transaction to get started</p>
+                    </div>
+                `;
+    } else {
+        transactionList.innerHTML = transactions.map(transaction => `
+                    <li class="transaction-item ${transaction.type} fade-in">
+                        <span class="transaction-name">
+                            ${transaction.type === 'income'
+                ? '<i class="fas fa-arrow-down text-success"></i>'
+                : '<i class="fas fa-arrow-up text-danger"></i>'}
+                            ${transaction.name}
+                        </span>
+                        <span class="transaction-amount ${transaction.type}">
+                            ${transaction.type === 'income' ? '+' : '-'}${transaction.amount.toFixed(2)} ৳
+                        </span>
+                    </li>
+                `).join('');
+    }
+
+    // Clear form
+    transactionNameInput.value = '';
+    transactionAmountInput.value = '';
+}
+
+// Event listeners
+addIncomeBtn.addEventListener('click', () => {
+    const name = transactionNameInput.value.trim();
+    const amount = transactionAmountInput.value.trim();
+
+    if (!name || !amount || isNaN(amount) || parseFloat(amount) <= 0) {
+        alert('Please enter a valid name and amount');
         return;
     }
 
-    Balance += amount;
-    Income += amount;
-
-    addTransaction(activity, amount, 'income');
-    activityInput.value = '';
-    amountInput.value = '';
-    updateUi();
+    addTransaction(name, amount, 'income');
 });
 
-delbtn.addEventListener('click', () => {
-    const activity = activityInput.value.trim();
-    const amount = parseFloat(amountInput.value);
+addExpenseBtn.addEventListener('click', () => {
+    const name = transactionNameInput.value.trim();
+    const amount = transactionAmountInput.value.trim();
 
-    if (!activity || isNaN(amount) || amount <= 0) {
-        alert('Please enter valid activity and amount');
+    if (!name || !amount || isNaN(amount) || parseFloat(amount) <= 0) {
+        alert('Please enter a valid name and amount');
         return;
     }
 
-    Balance -= amount;
-    
-
-    addTransaction(activity, amount, 'cost');
-    activityInput.value = '';
-    amountInput.value = '';
-    updateUi();
+    addTransaction(name, amount, 'expense');
 });
 
+// Initialize UI
+updateUI();
